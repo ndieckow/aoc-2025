@@ -1,0 +1,19 @@
+Advent of Code 2025, Day 03
+
+We have a list of numbers. Each row describes the joltage of a bank of batteries -- which is a number between 1 and 9. For part 1, we want to select two batteries in each line, so that the combined joltage is the highest possible. However, the batteries can not be rearranged.
+
+When selecting only two batteries, it's not too bad to try all of the combinations. But there is a more clever approach. The key observation is that first digit is the most important; we want it to be as large as possible, regardless of the second digit. If the maximum appears several times, we should pick the first one to leave as many options as possible for the second one.
+
+This means, we can simply choose the largest element from the list. With one small caveat: we have to exclude the last digit. Because, if that were the largest value, then there would be no second battery to choose.
+
+To pick the second digit, we simply take the maximum over the remaining digits -- this time including the last digit. And that's it.
+
+For the implementation, it is helpful to implement a custom maximum function, which identifies the first occurrence of the largest element and returns it, along with its index.
+
+Then, we loop through each bank and increase our answer variable by the best combination, which is computed by a "solve" method. After converting the string to a list of ints, it uses our argmax method to find the first digit, followed by an ordinary max over the remaining digits.
+
+For part 2, we want to combine 12 batteries. Notice that our previous observation still holds: The importance of the digits decreases as we move to the right, because they correspond to multiples of lower powers of 10.
+
+We can modify our "solve" method to take another argument for the number of digits to be picked. We also keep track of the offset and create an answer variable. Then, the central part of the function is replaced by a for loop, in which the correct sublist is created, passed to argmax, the offset is updated, and the answer incremented.
+
+Complexity: O(nk)

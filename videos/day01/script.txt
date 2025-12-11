@@ -1,0 +1,10 @@
+Advent of Code 2025, Day 01
+
+We are given a sequence of rotations to be performed on a dial. Each rotation is identified by its direction, left or right, and the amount of clicks. The dial has 99 clicks in total, but it wraps around, meaning that, if the dial is at 0, going one click to the left means that it ends up at 99.
+In part 1, we want to count how often the dial lands on click 0 after a rotation is finished.
+
+The implementation is straightforward. We maintain a variable for the dial position which is updated after every rotation. The key ingredient here is the modulo operator, which performs the wrap-around. Let's not forget to negate the amount, if the rotation is to the left.
+Whenever our dial variable is zero after a rotation, we can increment our answer variable. That's part 1.
+
+For part 2, we additionally want to count how many times the dial points at 0 in general, without requiring that the rotation ends there.
+We can extend our implementation by having our `rotate` function also return the number of zeros. For this, we divide the amount by 100, and the quotient tells us how often the dial pointed at 0. ...Well, almost. Sometimes, there can be *one more* zero due to the remainder. This only happens when the dial didn't start at 0 and ended up somewhere outside the range from 0 to 100. Finally, let's add the zeros to our answer. And that's part 2.

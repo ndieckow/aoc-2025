@@ -1,0 +1,19 @@
+Advent of Code 2025, Day 07
+
+A beam is shot into a grid, consisting of empty space and splitters. As the name suggests, the beam is split when it hits one of the splitters. This means, it divides and continues to travel downwards in the left and right neighbor columns. If two different splitters create two beams in the same column, they merge into a single beam. In part 1, we want to count how many splits occur in total.
+
+We can simply implement the mechanism and simulate the beam. To do this, we maintain a set that contains the column indices in which there is a beam, initially just the starting column. Then, we perform a nested for-loop through the rows and the current set of columns, which is updated after each inner loop. When we observe a splitter, we increment the answer variable.
+
+For part 2, we want to count the number of different paths a single beam particle can take. This means that we no longer divide the beam, but instead choose whether to take the left or right path. Intuitively, this should be roughly exponential in the depth: if this were a perfect Galton board, the number of paths would by 2 to the power of the depth. But since we have gaps in some of the rows, we cannot rely on math alone.
+
+Re-using our part 1 code with a list instead of a set should give the right answer, but it would have an exponential run time. So, let's use dynamic programming instead.
+
+The idea is that, for each splitter, we count how many unique paths can lead to it. For instance, we know that the very first splitter can be reached in only *one single* way.
+Same goes for the next two splitters.
+But at the third level, things are different: the splitter in the middle can be reached via both splitters in the previous level, so its count should be 2. Or, more accurately, the sum of the counts of the possible predecessors. We proceed like this, until we reach the bottom of the grid.
+
+Finally, we can add all of the counts together. This represents the number of paths that are created due to the splitting. Because we started out with a single beam, we have to increment the sum once more to get the correct answer.
+
+The implementation follows this approach directly. While this is a top-down approach, a bottom-up approach is also possible, where you would use a recursive function along with a memoization table.
+
+In terms of complexity, our algorithm for part 2 is nothing but a BFS on a binary tree. But since we still have to find the children of a node with a loop, the worst-case time complexity is O(n * R), where n is the number of splitters, or O(R^2 C).

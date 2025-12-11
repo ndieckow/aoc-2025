@@ -1,0 +1,11 @@
+Advent of Code 2025, Day 05
+
+We have a list of number ranges, followed by a list of numbers. In part 1, we want to figure out how many of the numbers are in at least *one* of the ranges.
+
+We can implement this using a simple nested for-loop. But let's parse the input first.
+For each number, we go through all of the ranges, and increase our answer variable, as soon as we find a range that the number is contained in. There are more efficient approaches, but this works fast enough for the input.
+
+For part 2, we want to count how many unique numbers are covered by the ranges. The tricky part is dealing with the overlaps. Let's start by sorting the ranges. As we walk through the ranges, we maintain a variable for the largest upper bound we have seen so far.
+If the lower bound of the range we're currently looking at is above the maximum upper bound, we know that none of the numbers have been in any of the previous ranges and we can increase the answer variable by the full length of the range.
+Otherwise, and if the upper bound of the current range is larger than the maximum upper bound, we know that the inclusive range from max_u+1 to u has not been counted yet.
+Otherwise, the current range is already contained in the ranges we've looked at so far, and we don't increase our counter. Because of the sorting, the complexity is O(n log n), where n is the number of ranges. Can you think of a better solution? Let me know in the comments.

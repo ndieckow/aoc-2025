@@ -1,0 +1,7 @@
+Advent of Code 2025, Day 09
+
+We have a list of coordinates. The coordinates correspond to locations of *red tiles*. In part 1, we want to find the area of the largest rectangle that can be created by using two of the red tiles as corners.
+
+To find it, we can simply check all pairs of points, compute the area of the rectangle they span, and maintain the maximum.
+
+For part 2, we still want to maximize the area of a rectangle spanned by two points, but we have more restrictions now. Namely, the tiles between two red tiles in the coordinate list are considered green tiles. This forms the perimeter of a polygon, whose area is also considered to be filled with green tiles. We now want to find the largest rectangle covering only tiles which are red or green. Hence, the rectangle we found in part 1 is no longer possible, because it exits the polygon.

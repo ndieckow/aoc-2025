@@ -1,0 +1,14 @@
+Advent of Code 2025, Day 11
+
+We are given a list of devices. Each line tells us the name of a device, followed by the names of the devices it is connected to. There are also two special devices, called 'you' and 'out'. In part 1, we want to count the number of ways you can connect from 'you' to 'out'.
+
+Let's first realize that this is a graph problem. The input is an adjacency list, so we can visualize it as a graph. Similar to day 7, part 2, we can take a dynamic approach.
+
+Let f(s, t) denote the number of paths from node s to t. If s is equal to t, there are no choices to make, so there is only 1 path. This is our base case. Otherwise, we can consider every possible step that can be taken from s, which is given by s's entry in the adjacency list. Each step leads to a different node, and from that node, we may still be able to reach t. So, we compute the sum of f(w,t) where w goes over the set of neighbors. That's already it. f(you, out) will then give us the right answer.
+
+To implement it, we can literally write the function definition. As long as the graph is acyclic, it will terminate. Because this function is deterministic and has no side effects, we can, and should, memoize it. This means creating a dictionary from inputs to outputs, and using it whenever it contains the input already. This is crucial for recursive functions as they re-use a lot of results, and will bring the time complexity from exponential down to linear in the size of the input space; in our case O(n^2).
+An easier way to do this in Python is by using the "cache" decorator from the functools package.
+
+For part 2, we want to count the number of paths from svr to out, which pass through both fft and dac, in any order.
+It seems like we might be able to adapt our dynamic programming solution to this new problem, but actually, we can re-use the old one. The key insight is that any such path can be broken down into three components: A path from svr to fft, then a path from fft to dac, and finally a path from dac to out.
+Hence, we can count the number of each of those paths and multiply them together, giving us the number of paths that pass through fft and dac, in that order. Do the same thing with the order of dac and fft swapped, add it to the result, and we're done.

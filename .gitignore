@@ -1,4 +1,6 @@
 *.in
 *.test
-videos
 .vscode
+**/media/
+**/__pycache__/
+*.mp4
