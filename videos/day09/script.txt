@@ -4,4 +4,6 @@ We have a list of coordinates. The coordinates correspond to locations of *red t
 
 To find it, we can simply check all pairs of points, compute the area of the rectangle they span, and maintain the maximum.
 
-For part 2, we still want to maximize the area of a rectangle spanned by two points, but we have more restrictions now. Namely, the tiles between two red tiles in the coordinate list are considered green tiles. This forms the perimeter of a polygon, whose area is also considered to be filled with green tiles. We now want to find the largest rectangle covering only tiles which are red or green. Hence, the rectangle we found in part 1 is no longer possible, because it exits the polygon.
+For part 2, we still want to maximize the area of a rectangle spanned by two red tiles, but we have more restrictions now. Namely, if we connect the tiles in the given order, we see that they form a polygon with axis-aligned edges. We now want to find the largest rectangle that is fully contained in this polygon. Clearly, the rectangle we found in part 1 is no longer allowed, because it exits the polygon.
+
+The simplest approach is still based on checking all pairs of red tiles. To see whether we exit the polygon, we can use another for-loop that checks if any of the polygon's edges intersects with any of the rectangle's edges.  This has a cubic time complexity and runs in about 14 seconds on my machine.

@@ -66,24 +66,27 @@ maxarea = 0
 
 for i,p in enumerate(points):
     a, b = nbs[p]
-    pad = dir(a, p) # (0,-1)
-    pbd = dir(p, b) # (1,0)
+    #pad = dir(a, p) # (0,-1)
+    #pbd = dir(p, b) # (1,0)
 
     for q in points[i+1:]:
-        qd = dir(p, q)
-        pd = dir(q, p)
+        #qd = dir(p, q)
+        #pd = dir(q, p)
 
-        qa, qb = nbs[q]
-        qad = dir(qa, q)
-        qbd = dir(q, qb)
+        #qa, qb = nbs[q]
+        #qad = dir(qa, q)
+        #qbd = dir(q, qb)
 
         # check validity
-        if not (checky(pad, pbd, qd) and checky(qad, qbd, pd)):
-            continue
+        #if not (checky(pad, pbd, qd) and checky(qad, qbd, pd)):
+        #    continue
 
         flag = False
         min_x, max_x = min(p[0],q[0]), max(p[0],q[0])
         min_y, max_y = min(p[1],q[1]), max(p[1],q[1])
+
+        # check other corners
+
 
         #print(p, q, disruptors)
         for a,b in list(zip(points,points[1:])) + [(points[-1],points[0])]:
